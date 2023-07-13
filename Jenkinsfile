@@ -7,14 +7,14 @@ pipeline {
     
     stages {
         stage('Git Phase') {
-		   when{
-		       expression {
-			       params.environment == "dev"
-				}
-			}
+		 //   when{
+		 //       expression {
+			//        params.environment == "dev"
+			// 	}
+			// }
             steps {
                 echo "This is the stage of Git cloning!"
-				git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
+		git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
         stage('Build Phase'){
