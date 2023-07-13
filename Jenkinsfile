@@ -52,7 +52,7 @@ pipeline {
 				}
 			}
             steps{
-                echo "This is the stage of sending emails to the admin or Job runner."
+                echo "This is the stage of sending emails to the admin or Job runner.."
             }
         }
     }
