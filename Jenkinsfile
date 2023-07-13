@@ -38,9 +38,10 @@ pipeline {
                 echo "This is the stage to uploading lms.war file to S3 bucket"
 		    sh '''
                           pwd
-			  cd target/
+		          cd target/
                           ls -lrt
 			  aws s3 cp lms.war gitops-demo-bucket-tf
+		       '''
             }
         }
         stage('Deploy Phase'){
