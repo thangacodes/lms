@@ -11,7 +11,6 @@ pipeline {
 				}
 			}
             steps {
-                echo "This is the stage of Git cloning!"
 		git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
