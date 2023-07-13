@@ -19,7 +19,7 @@ pipeline {
         stage('Build Phase'){
             steps{
                 echo "This is the stage of building artificate using maven tool"
-                sh "df -hT"
+                sh 'mvn clean package'
             }
         }
         stage('Testing Phase'){
