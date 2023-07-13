@@ -28,14 +28,19 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Testing Phase'){
-		    when{
-		       expression {
-			       params.environment == "dev"
-				}
-			}
+        stage('Uploadig WAR_file to S3'){
+		 //    when{
+		 //       expression {
+			//        params.environment == "dev"
+			// 	}
+			// }
             steps{
-                echo "This is the stage of doing manual or automation SDLC testing"
+                echo "This is the stage to uploading lms.war file to S3 bucket"
+		    sh '''
+                          pwd
+			  cd target/
+                          ls -lrt
+			  aws s3 cp lms.war gitops-demo-bucket-tf
             }
         }
         stage('Deploy Phase'){
