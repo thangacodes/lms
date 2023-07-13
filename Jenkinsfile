@@ -18,11 +18,11 @@ pipeline {
             }
         }
         stage('Build Phase'){
-		    when{
-		       expression {
-			       params.environment == "dev"
-				}
-			}
+		 //    when{
+		 //       expression {
+			//        params.environment == "dev"
+			// 	}
+			// }
             steps{
                 echo "This is the stage of building artificate using maven tool"
                 sh 'mvn clean package'
