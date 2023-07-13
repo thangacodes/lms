@@ -1,17 +1,20 @@
 pipeline {
     agent any
     parameters {
-       choice choices: ['dev', 'test', 'pre-prod', 'prod'], description: 'Available environments', name: 'Environment'
-    }
+      choice choices: ['dev', 'test', 'prod'], description: 'Please avail one of the environment', name: 'Environment'
+	}
+
+    
     stages {
-        stage('Code clone') {
+        stage('Git Phase') {
 		   when{
 		       expression {
 			       params.environment == "dev"
 				}
 			}
             steps {
-		git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
+                echo "This is the stage of Git cloning!"
+				git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
         stage('Build Phase'){
@@ -52,7 +55,7 @@ pipeline {
 				}
 			}
             steps{
-                echo "This is the stage of sending emails to the admin or Job runner.."
+                echo "This is the stage of sending emails to the admin or Job runner."
             }
         }
     }
