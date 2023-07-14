@@ -40,7 +40,7 @@ pipeline {
                           pwd
 		          cd target/
                           ls -lrt
-			  aws s3 cp lms.war s3://gitops-demo-bucket-tf/
+			  aws s3 cp lms.war s3://gitops-demo-bucket-tf/Java_Build_Artifacts/
 		       '''
             }
         }
