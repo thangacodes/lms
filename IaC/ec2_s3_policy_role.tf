@@ -59,7 +59,7 @@ resource "aws_iam_policy_attachment" "demo-attach" {
 
 ### Instance profile creation
 
-resource "aws_iam_instance_profile" "demo-profile" {
+resource "aws_iam_instance_profile" "demo_profile" {
   name = "ec2_s3_profile"
   role = aws_iam_role.demo-role.name
 }
