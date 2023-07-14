@@ -63,9 +63,9 @@ pipeline {
         stage('Sending email'){
 		    when{
 		       expression {
-			    params.Environment == "dev"
-				}
+			 params.Environment == "dev"
 			}
+		}
             steps{
                 echo "Sending email to the Build & Release on the Job Status..."
             }
