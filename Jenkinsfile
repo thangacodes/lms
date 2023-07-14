@@ -6,7 +6,7 @@ pipeline {
 
     
     stages {
-        stage('Git Phase') {
+        stage('Code Checkout') {
 		 //   when{
 		 //       expression {
 			//        params.environment == "dev"
@@ -17,7 +17,7 @@ pipeline {
 		git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
-        stage('Build Phase'){
+        stage('Mvn Build'){
 		 //    when{
 		 //       expression {
 			//        params.environment == "dev"
@@ -28,7 +28,7 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Uploadig WAR_file to S3'){
+        stage('Artifact Upload'){
 		 //    when{
 		 //       expression {
 			//        params.environment == "dev"
