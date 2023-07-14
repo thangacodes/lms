@@ -13,11 +13,11 @@ output "private_endpoint" {
 }
 
 output "role_name_finding" {
-  value = aws_iam_role.demo-role.name
+  value = aws_iam_role.demo_role.name
 }
 output "policy_name" {
-  value = aws_iam_policy.demo-s3-policy.name
+  value = aws_iam_policy.demo_s3_policy.name
 }
 output "ec2_profile_name" {
-  value = aws_iam_instance_profile.demo-profile.name
+  value = aws_iam_instance_profile.demo_profile.name
 }
