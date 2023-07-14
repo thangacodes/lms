@@ -10,6 +10,7 @@ data "aws_ami" "latest_amazon_linux" {
 resource "aws_instance" "web" {
   ami                    = data.aws_ami.latest_amazon_linux.id
   instance_type          = var.server_size
+  key_name               = "admin"
   vpc_security_group_ids = [aws_security_group.web.id]
   user_data              = <<EOF
 #!/bin/bash
