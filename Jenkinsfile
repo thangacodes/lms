@@ -3,65 +3,71 @@ pipeline {
     parameters {
       choice choices: ['dev', 'test', 'prod'], description: 'Please avail one of the environment', name: 'Environment'
 	}
-
-    
     stages {
-        stage('Code Checkout') {
-		 //   when{
-		 //       expression {
-			//        params.environment == "dev"
-			// 	}
-			// }
+       stage('Code Checkout') {
+		   when{
+		      expression {
+			  params.Environment == "dev"
+				}
+			}
             steps {
-                echo "This is the stage of Git cloning!"
-		git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
+			    sh "Code checkout in progress..."
+		        git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
-        stage('Mvn Build'){
-		 //    when{
-		 //       expression {
-			//        params.environment == "dev"
-			// 	}
-			// }
+        stage('MVN Build'){
+		   when{
+		      expression {
+			    params.Environment == "dev"
+				}
+			}
             steps{
-                echo "This is the stage of building artificate using maven tool"
+                echo "Maven build in progress..."
                 sh 'mvn clean package'
             }
         }
         stage('Artifact Upload'){
-		 //    when{
-		 //       expression {
-			//        params.environment == "dev"
-			// 	}
-			// }
+		   when{
+		     expression {
+			   params.Environment == "dev"
+			}
+		}
             steps{
-                echo "This is the stage to uploading lms.war file to S3 bucket"
+                echo "Artifact like war file uploading to the S3 bucket..."
 		    sh '''
-                          pwd
-		          cd target/
-                          ls -lrt
-			  aws s3 cp lms.war s3://gitops-demo-bucket-tf/Java_Build_Artifacts/
+                pwd
+		        cd target/
+                ls -lrt
+			    aws s3 cp lms.war s3://gitops-demo-bucket-tf/Java_Build_Artifacts/
 		       '''
             }
         }
         stage('Deploy Phase'){
 		    when{
 		       expression {
-			       params.environment == "dev"
+			    params.Environment == "dev"
 				}
 			}
             steps{
-                echo "This is the stage of deploying jar/war file in app or web servers."
+                echo "Terraform Script kicks in..."
+				sh '''
+				   cd Iac/
+				   ls -lrt
+				   terraform init
+				   terraform fmt
+				   terraform validate
+				   terraform plan
+				'''
             }
         }
         stage('Sending email'){
 		    when{
 		       expression {
-			       params.environment == "dev"
+			    params.Environment == "dev"
 				}
 			}
             steps{
-                echo "This is the stage of sending emails to the admin or Job runner."
+                echo "Sending email to the Build & Release on the Job Status..."
             }
         }
     }
