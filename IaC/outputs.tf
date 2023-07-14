@@ -6,8 +6,18 @@ output "web_private_ip" {
 }
 
 output "public_endpoint" {
-  value = "http://${aws_instance.web.public_ip}:8080/lms"
+  value = "http://${aws_instance.web.public_ip}:8080/lms/"
 }
 output "private_endpoint" {
   value = "http://${aws_instance.web.private_ip}:8080/lms/"
+}
+
+output "role_name_finding" {
+  value = aws_iam_role.demo-role.name
+}
+output "policy_name" {
+  value = aws_iam_policy.demo-s3-policy.name
+}
+output "ec2_profile_name" {
+  value = aws_iam_instance_profile.demo-profile.name
 }
