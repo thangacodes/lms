@@ -54,7 +54,7 @@ resource "aws_iam_role" "demo_role" {
 resource "aws_iam_policy_attachment" "demo_attach" {
   name       = "ec2-attachment"
   roles      = [aws_iam_role.demo_role.name]
-  policy_arn = aws_iam_policy.demo-s3-policy.arn
+  policy_arn = aws_iam_policy.demo_s3_policy.arn
 }
 
 ### Instance profile creation
