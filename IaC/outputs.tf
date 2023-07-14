@@ -6,8 +6,8 @@ output "web_private_ip" {
 }
 
 output "public_endpoint" {
-  value = "http://${aws_instance.web.public_ip}:8080/"
+  value = "http://${aws_instance.web.public_ip}:8080/lms"
 }
 output "private_endpoint" {
-  value = "http://${aws_instance.web.private_ip}:8080/"
+  value = "http://${aws_instance.web.private_ip}:8080/lms/"
 }
