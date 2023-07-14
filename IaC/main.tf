@@ -11,9 +11,16 @@ resource "aws_instance" "web" {
   ami                    = data.aws_ami.latest_amazon_linux.id
   instance_type          = var.server_size
   key_name               = var.key_name
-  iam_instance_profile   = aws_iam_instance_profile.demo_profile.name
+  iam_instance_profile   = aws_iam_instance_profile.demo-profile.name
   vpc_security_group_ids = [aws_security_group.web.id]
-  tags                   = merge(var.taggy, { Name = "${var.server_name}-Server" })
+  user_data              = file("tomcat_install.sh")
+  connection {
+    type        = "ssh"
+    user        = "ec2-user"
+    private_key = file("admin.pem")
+    host        = self.public_ip
+  }
+  tags = merge(var.taggy, { Name = "${var.server_name}-Server" })
 }
 resource "aws_security_group" "web" {
   name_prefix = "${var.server_name}-WebServer-SG"
