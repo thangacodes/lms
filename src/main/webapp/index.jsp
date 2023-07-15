@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Azure DevOps Introduction</title>
   </head>
-<body>
+<body style="background-color:powderblue;">
    <h1 style="color: green; font-size: 30px;" align="left"><u> Azure DevOps:- </u></h2>
    <p>What is Azure DevOps? Plan smarter, collaborate better, and ship faster with a set of modern dev services.</p>
    <h3 style="color: blue; font-size: 20px;" align="left">Features of Azure DevOps:-</h3>
@@ -24,7 +24,7 @@
    <h3>CICD <a href="https://devblogs.microsoft.com/devops/copy-files-over-ssh-during-continuous-integration-and-deployment/" target="_blank"> SSH over</a></h3>
    <button onclick="window.location.href='https://www.youtube.com/watch?v=Rzqaxi4xMvM';">Azure CICD Demonstration</button>
    <footer>
-	<p style="color:red;">© Copyright Career Karma 2022</p>
+        <p style="color:red;">© Copyright Career Karma 2022</p>
 </footer>
 </body>
 </html>
