@@ -11,7 +11,7 @@ resource "aws_instance" "web" {
   ami                    = data.aws_ami.latest_amazon_linux.id
   instance_type          = var.server_size
   key_name               = var.key_name
-  iam_instance_profile   = aws_iam_instance_profile.demo-profile.name
+  iam_instance_profile   = aws_iam_instance_profile.demo_profile.name
   vpc_security_group_ids = [aws_security_group.web.id]
   user_data              = file("tomcat_install.sh")
   connection {
