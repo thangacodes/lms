@@ -1,22 +1,40 @@
 #!/bin/bash
-yum update -y
-yum install -y wget
-yum install -y java
-cd /tmp/
+## Enable Debug if you want it
+#set -x
+echo "**** Script Executed at ****:" $(date '+%Y-%m-%d %H:%M:%S')
+REQ_TOMCAT_VER="10.1.11"
+echo ${REQ_TOMCAT_VER}
+TOMCAT_MAJOR_VER=$(echo ${REQ_TOMCAT_VER} | cut -c1,2 )
+echo ${TOMCAT_MAJOR_VER}
+URL="https://dlcdn.apache.org/tomcat/tomcat-${TOMCAT_MAJOR_VER}/v${REQ_TOMCAT_VER}/bin/apache-tomcat-${REQ_TOMCAT_VER}.tar.gz"
+echo ${URL}
+# Configuring S3 bucket
+S3_BUCKET="s3://gitops-demo-bucket-tf"
+echo ${S3_BUCKET}
+ARTIFACT="lms.war"
+echo ${ARTIFACT}
+wget $URL
+echo "##### Going to extract apache-tomcat-${REQ_TOMCAT_VER}.tar.gz #####"
+tar -xf apache-tomcat-${REQ_TOMCAT_VER}.tar.gz
+mv apache-tomcat-${REQ_TOMCAT_VER} tomcat${TOMCAT_MAJOR_VER}
+ls -lrt
+echo "##### No more tar.gz file is required. Removing it off from the current download path ####"
+rm -rf apache-tomcat-${REQ_TOMCAT_VER}.tar.gz
+ls -lrt
+echo "#### Changing /opt/ directory... ####"
+cd /opt/
 pwd
-wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.11/bin/apache-tomcat-10.1.11.tar.gz .
-sleep 10
-aws s3 cp s3://gitops-demo-bucket-tf/lms.war .
-ls -lart > files_in_temp.txt
-tar -xf apache-tomcat-10.1.11.tar.gz
 sleep 5
-rm -rf apache-tomcat-10.0.27.tar.gz  #removing the tar.gz file, post downloads in /tmp directory
-mkdir /opt/tomcat10  # Create a new directory under /opt
-cd /opt/tomcat10/    # Change directory to the /tomcat10 
-cp -R /tmp/apache-tomcat-10.1.11 .
-cp -R /tmp/lms.war /opt/tomcat10/apache-tomcat-10.1.11/webapps/
-cd /opt/tomcat10/apache-tomcat-10.1.11/bin/
-sh startup.sh  #Tomcat service starting
+echo "#### Recursively Copying tomcat${TOMCAT_MAJOR_VER}"
+sudo cp -R /tmp/tomcat${TOMCAT_MAJOR_VER} .
+ls -lrt
+cd /opt/tomcat${TOMCAT_MAJOR_VER}/webapps/
+pwd
+echo "#### Downloading ${ARTIFACT} from bucket ${S3_BUCKET} ####"
+${S3_BUCKET}/${ARTIFACT} .
+sh ../bin/startup.sh
 sleep 10
-ls -l /opt/tomcat10/apache-tomcat-10.1.11/webapps/ > /tmp/webapps_files.txt
-cat /opt/tomcat10/apache-tomcat-10.1.11/logs/catalina.out > /tmp/tomcat_log.txt
+ls -l /opt/tomcat${TOMCAT_MAJOR_VER}/webapps/ > /tmp/webapps_files.txt
+cat /opt/tomcat${TOMCAT_MAJOR_VER}/logs/catalina.out > /tmp/tomcat_log.txt
+exit
+
