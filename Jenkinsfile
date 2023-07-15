@@ -6,7 +6,7 @@ pipeline {
     stages {
        stage('Code Checkout') {
             steps {
-		       sh "Code checkout in progress..."
+		   sh "Code checkout in progress..."
 	           git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
             }
         }
@@ -30,10 +30,10 @@ pipeline {
             steps{
                 echo "Artifact like war file uploading to the S3 bucket..."
 		        sh '''
-                pwd
-		        cd target/
-                ls -lrt
-			    aws s3 cp lms.war s3://gitops-demo-bucket-tf/Java_Build_Artifacts/
+                           pwd
+		           cd target/
+                           ls -lrt
+			   aws s3 cp lms.war s3://gitops-demo-bucket-tf/
 		       '''
             }
         }
