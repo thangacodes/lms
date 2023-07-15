@@ -1,7 +1,7 @@
 ## Create an IAM Policy
 
 resource "aws_iam_policy" "demo_s3_policy" {
-  name        = "Ondot-S3-Bucket-Access-Policy"
+  name        = "tf-s3-bucket-access-policy"
   description = "Provides permission to access S3"
 
   policy = jsonencode({
@@ -32,7 +32,7 @@ resource "aws_iam_policy" "demo_s3_policy" {
 #Create an IAM Role
 
 resource "aws_iam_role" "demo_role" {
-  name = "ondot_ec2_role_to_s3_bucket"
+  name = "tf_ec2_role_to_s3_bucket"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
