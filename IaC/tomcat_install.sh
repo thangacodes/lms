@@ -1,7 +1,6 @@
 #!/bin/bash
-## Enable Debug if you want it
-#set -x
-echo "**** Script Executed at ****:" $(date '+%Y-%m-%d %H:%M:%S')
+set -x
+echo "***** Script execution at *****:" $(date '+%Y-%m-%d %H:%M:%S')
 REQ_TOMCAT_VER="10.1.11"
 echo ${REQ_TOMCAT_VER}
 TOMCAT_MAJOR_VER=$(echo ${REQ_TOMCAT_VER} | cut -c1,2 )
@@ -13,25 +12,28 @@ S3_BUCKET="s3://gitops-demo-bucket-tf"
 echo ${S3_BUCKET}
 ARTIFACT="lms.war"
 echo ${ARTIFACT}
+echo "**** Setting up java in Tomcat server ****"
+sudo yum install -y java
+cd /tmp/
 wget $URL
-echo "##### Going to extract apache-tomcat-${REQ_TOMCAT_VER}.tar.gz #####"
+echo "***** Going to extract apache-tomcat-${REQ_TOMCAT_VER}.tar.gz *****"
 tar -xf apache-tomcat-${REQ_TOMCAT_VER}.tar.gz
 mv apache-tomcat-${REQ_TOMCAT_VER} tomcat${TOMCAT_MAJOR_VER}
 ls -lrt
-echo "##### No more tar.gz file is required. Removing it off from the current download path ####"
+echo "**** No more tar.gz file is required. Removing it off from the current download path ****"
 rm -rf apache-tomcat-${REQ_TOMCAT_VER}.tar.gz
 ls -lrt
-echo "#### Changing /opt/ directory... ####"
+echo "**** Changing /opt/ directory... *****"
 cd /opt/
 pwd
 sleep 5
-echo "#### Recursively Copying tomcat${TOMCAT_MAJOR_VER}"
+echo "**** Recursively Copying tomcat${TOMCAT_MAJOR_VER}...****"
 sudo cp -R /tmp/tomcat${TOMCAT_MAJOR_VER} .
 ls -lrt
 cd /opt/tomcat${TOMCAT_MAJOR_VER}/webapps/
 pwd
-echo "#### Downloading ${ARTIFACT} from bucket ${S3_BUCKET} ####"
-${S3_BUCKET}/${ARTIFACT} .
+echo "**** Downloading ${ARTIFACT} from bucket ${S3_BUCKET} ****"
+aws s3 cp ${S3_BUCKET}/${ARTIFACT} .
 sh ../bin/startup.sh
 sleep 10
 ls -l /opt/tomcat${TOMCAT_MAJOR_VER}/webapps/ > /tmp/webapps_files.txt
