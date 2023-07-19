@@ -46,7 +46,7 @@ pipeline {
             steps{
                 echo "Terraform Script kicks in..."
 				sh '''
-				   cd Iac/webapp_install_config/
+				   cd ../IaC/webapp_install_config/
 				   ls -lrt
 				   terraform init
 				   terraform fmt
