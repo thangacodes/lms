@@ -11,22 +11,22 @@ pipeline {
             }
         }
         stage('MVN Build'){
-		//    when{
-		//       expression {
-		// 	    params.Environment == "dev"
-		// 		}
-		// 	}
+		   when{
+		      expression {
+			    params.Environment == "dev"
+				}
+			}
             steps{
                 echo "Maven build in progress..."
                 sh 'mvn clean package'
             }
         }
         stage('Artifact Upload'){
-		//    when{
-		//      expression {
-		// 	   params.Environment == "dev"
-		// 	}
-		// }
+		   when{
+		     expression {
+			   params.Environment == "dev"
+			}
+		}
             steps{
                 echo "Artifact like war file uploading to the S3 bucket..."
 		        sh '''
@@ -38,11 +38,11 @@ pipeline {
             }
         }
         stage('Deploy Phase'){
-		    // when{
-		    //    expression {
-			//     params.Environment == "dev"
-			// 	}
-			// }
+		    when{
+		       expression {
+			    params.Environment == "dev"
+				}
+			}
             steps{
                 echo "Terraform Script kicks in..."
 				sh '''
@@ -56,11 +56,11 @@ pipeline {
             }
         }
         stage('Sending email'){
-		    // when{
-		    //    expression {
-			//     params.Environment == "dev"
-			// 	}
-			// }
+		    when{
+		       expression {
+			    params.Environment == "dev"
+				}
+			}
             steps{
                 echo "Sending email to the Build & Release on the Job Status..."
             }
