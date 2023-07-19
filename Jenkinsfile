@@ -6,8 +6,10 @@ pipeline {
     stages {
        stage('Code Checkout') {
             steps {
-		   sh "Code checkout in progress..."
-	           git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
+		   sh '''
+                        echo " Code checkout in progress...."
+	                git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
+		      '''
             }
         }
         stage('MVN Build'){
