@@ -8,8 +8,8 @@ pipeline {
             steps {
 		   sh '''
                         echo " Code checkout in progress...."
+                      '''
 	                git branch: 'main', url: 'https://github.com/thangacodes/lms.git'
-		      '''
             }
         }
         stage('MVN Build'){
