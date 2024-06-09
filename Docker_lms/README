@@ -1,0 +1,16 @@
+Custom App Deployment:
+
+WAR file deploying on Apache Tomcat via Docker form:
+
+A custom web archive deploying on Apache Tomcat server via Dockerized form,
+
+Steps:
+
+1) Install Docker.
+2) Clone this repository - $git clone https://github.com/thangacodes/lms.git
+3) cd 'lms/Docker_lms/'
+4) docker build -t lmsapp .
+5) docker run -p 80:8080 lmswebapp
+6) Access the page like below,
+
+http://localhost:80/lms/
