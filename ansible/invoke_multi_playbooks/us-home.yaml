@@ -1,0 +1,12 @@
+---
+- name: "DB Admin user account creation"
+  hosts: localhost
+  become: yes
+  tasks:
+  - name: "User account creation begins.."
+    user:
+      name: dbadmin
+      comment: "dbadmin user"
+      shell: /bin/bash
+      createhome: yes
+      home: /home/dbadmin
