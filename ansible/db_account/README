@@ -1,0 +1,30 @@
+Role Name
+=========
+Role Name: db
+
+#- Tree structure
+
+├── db_account
+│   ├── README.md
+│   └── tasks
+│       └── main.yaml
+└── invoke_db_role.yaml
+
+The main reason of the role to be create a functional account call dbadmin. Then it will cat the files that are having ownership permission of dbadmin
+
+Requirements
+------------
+Need to be installed/exist python2 or python3 version. Ansible package has be to exist on the machine.
+
+Example Playbook
+----------------
+Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+
+    - hosts: localhost
+      become: yes
+      roles:
+         - { role: db_account }
+
+Author Information
+------------------
+Author_Name: Thangadurai.murugan
