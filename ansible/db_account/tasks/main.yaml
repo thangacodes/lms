@@ -1,0 +1,55 @@
+---
+  - name: "Creatin dbadmin user functional account"
+    user:
+      name: dbadmin
+      comment: "dbadmin user"
+      shell: /bin/bash
+      createhome: yes
+      home: /home/dbadmin
+  - name: "Creating file calling 'dummy_file' using copy/content"
+    copy:
+      content: "hey my name is {{ ansible_user_shell }}"
+      owner: dbadmin
+      group: dbadmin
+      mode: '0600'
+      dest: /home/dbadmin/dummy_file
+  - name: "User 'dbadmin' password updation"
+    copy:
+      content: "dbadmin@123"
+      owner: dbadmin
+      group: dbadmin
+      mode: '0600'
+      dest: /home/dbadmin/password
+  - name: "shebang update in a shell script file"
+    copy:
+      content: "#!/bin/bash"
+      owner: dbadmin
+      group: dbadmin
+      mode: '0600'
+      dest: /home/dbadmin/shell.sh
+
+  - name: "Review dummy_file content"
+    command: cat /home/dbadmin/dummy_file
+    register: dummyfile_out
+  - debug: msg="{{ dummyfile_out.stdout }}"
+
+  - name: "Review password-file content"
+    command: cat /home/dbadmin/password
+    register: password_out
+  - debug: msg="{{ password_out.stdout }}"
+
+  - name: "Review 'shell.sh' file content"
+    command: cat /home/dbadmin/shell.sh
+    register: shell_out
+  - debug: msg="{{ shell_out.stdout }}"
+  - name: "sleep for 10 seconds"
+    pause:
+      seconds: 10
+  - name: "Delete user account "
+    command: userdel -r dbadmin
+    register: del_out
+  - debug: msg="{{ del_out }}"
+  - name: "Catting /etc/passwd file"
+    command: cat /etc/passwd
+    register: cat_out
+  - debug: msg="{{ cat_out.stdout }}"
