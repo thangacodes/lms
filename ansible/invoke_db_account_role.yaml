@@ -1,0 +1,7 @@
+---
+- name: "DB Role invoking in this playbook"
+  hosts: localhost
+  gather_facts: true
+  become: yes
+  roles:
+  - { role: /home/ec2-user/db_account }
